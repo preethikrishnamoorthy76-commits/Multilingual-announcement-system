@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - MultiLingo</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Professional Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <div>
+                    <h1>MultiLingo</h1>
+                    <div class="brand-subtitle">Multi Language Announcement</div>
+                </div>
+            </div>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="/dashboard" class="nav-link">
+                    <i class="fas fa-tachometer-alt nav-icon"></i>
+                    Dashboard
+                </a>
+                <a href="/profile" class="nav-link active">
+                    <i class="fas fa-user-circle nav-icon"></i>
+                    Profile
+                </a>
+                <button id="logoutBtn" class="btn btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="profile-page">
+        <!-- Profile Header -->
+        <div class="profile-header-card">
+            <div class="profile-header-content">
+                <div class="profile-avatar">
+                    <div class="avatar-circle">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="avatar-status-indicator"></div>
+                </div>
+                <div class="profile-info">
+                    <h1 class="profile-name">Welcome Back!</h1>
+                    <p class="profile-subtitle">Manage your voice translation preferences and integrations</p>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Available</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label">Languages</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">Real-time</span>
+                            <span class="stat-label">Translation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Content with Tabs -->
+        <div class="profile-tabs-container">
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="telegram">
+                    <div class="tab-icon"></div>
+                    <div class="tab-content-text">
+                        <span class="tab-title">Telegram Integration</span>
+                        <span class="tab-description">Connect your Telegram account</span>
+                    </div>
+                </button>
+                <button class="tab-btn" data-tab="settings">
+                    <div class="tab-icon"></div>
+                    <div class="tab-content-text">
+                        <span class="tab-title">Settings</span>
+                        <span class="tab-description">Customize your preferences</span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="tab-content-container">
+
+                <!-- Telegram Integration Tab -->
+                <div class="tab-content active" id="telegram-tab">
+                    <div class="integration-header">
+                        <div class="integration-icon">
+                            <i class="fab fa-telegram-plane"></i>
+                        </div>
+                        <div class="integration-info">
+                            <h3>Telegram Bot Integration</h3>
+                            <p>Connect your Telegram account to receive real-time notifications and updates directly in your preferred messaging app.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card">
+                        <div id="telegramStatus" class="telegram-status">
+                            <div class="status-indicator status-disconnected"></div>
+                            <div class="status-text">
+                                <span class="status-title">Connection Status</span>
+                                <span class="status-subtitle">Checking connection status...</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="alertContainer" class="alert-container"></div>
+                            
+                            <!-- Step 1: Initial Instructions -->
+                            <div id="initialInstructions" class="integration-step-card" style="display: none;">
+                                <div class="step-header">
+                                    <div class="step-icon"></div>
+                                    <h4>Connect Your Telegram Account</h4>
+                                </div>
+                                <p class="step-description">Follow these simple steps to link your Telegram account and start receiving notifications:</p>
+                                
+                                <div class="steps-grid">
+                                    <div class="step-item">
+                                        <div class="step-number">1</div>
+                                        <div class="step-content">
+                                            <h5>Generate Token</h5>
+                                            <p>Create a secure verification token</p>
+                                        </div>
+                                    </div>
+                                    <div class="step-item">
+                                        <div class="step-number">2</div>
+                                        <div class="step-content">
+                                            <h5>Share with Bot</h5>
+                                            <p>Send the token to our Telegram bot</p>
+                                        </div>
+                                    </div>
+                                    <div class="step-item">
+                                        <div class="step-number">3</div>
+                                        <div class="step-content">
+                                            <h5>Verify Connection</h5>
+                                            <p>Wait for confirmation</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="step-actions">
+                                    <button onclick="generateToken()" class="btn btn-primary btn-large">
+                                        <i class="fas fa-key"></i>
+                                        Generate Verification Token
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Token Generated - Show sharing options -->
+                            <div id="tokenGeneratedSection" class="integration-step-card hidden" style="display: none;">
+                                <div class="step-header">
+                                    <div class="step-icon"></div>
+                                    <h4>Share Your Verification Token</h4>
+                                </div>
+                                <p class="step-description">Your verification token has been generated. Choose your preferred method to share it with our Telegram bot:</p>
+                                
+                                <div class="token-display-card">
+                                    <div class="token-label">Your Verification Token</div>
+                                    <div class="token-input-group">
+                                        <code id="generatedToken" class="token-code">Loading...</code>
+                                        <button onclick="copyToken()" class="btn btn-outline btn-sm">
+                                            <i class="fas fa-copy"></i>
+                                            Copy
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="sharing-methods-grid">
+                                    <div class="sharing-method-card">
+                                        <div class="method-header">
+                                            <div class="method-icon"></div>
+                                            <h5>Scan QR Code</h5>
+                                        </div>
+                                        <p>Scan this QR code with your mobile device to open Telegram with the token:</p>
+                                        <div class="qr-code-container">
+                                            <div id="qrCodeDisplay" class="qr-code-image">
+                                                <div class="loading-spinner">
+                                                    <i class="fas fa-spinner fa-spin"></i>
+                                                    <span>Loading QR Code...</span>
+                                                </div>
+                                            </div>
+                                            <button onclick="downloadQRCode()" class="btn btn-outline btn-sm qr-download-btn" style="display: none;">
+                                                <i class="fas fa-download"></i>
+                                                Download QR
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="sharing-method-card">
+                                        <div class="method-header">
+                                            <div class="method-icon"></div>
+                                            <h5>Direct Link</h5>
+                                        </div>
+                                        <p>Click below to open Telegram with the message pre-filled:</p>
+                                        <a id="telegramDirectLink" href="#" target="_blank" class="btn btn-telegram">
+                                            <i class="fab fa-telegram-plane"></i>
+                                            Open in Telegram
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="sharing-method-card">
+                                        <div class="method-header">
+                                            <div class="method-icon"></div>
+                                            <h5>Manual Copy</h5>
+                                        </div>
+                                        <p>Copy the token above and send it to <strong>@Multilingotrain_bot</strong> in Telegram</p>
+                                        <div class="manual-steps">
+                                            <span class="mini-step">1. Copy token above</span>
+                                            <span class="mini-step">2. Open Telegram</span>
+                                            <span class="mini-step">3. Search @Multilingotrain_bot</span>
+                                            <span class="mini-step">4. Send the token</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="verification-actions">
+                                    <button onclick="generateToken()" class="btn btn-secondary">
+                                        <i class="fas fa-redo"></i>
+                                        Generate New Token
+                                    </button>
+                                    <div class="verification-status">
+                                        <i class="fas fa-clock"></i>
+                                        <span>Waiting for verification... This will update automatically once confirmed.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Successfully Connected -->
+                            <div id="connectedSection" class="integration-step-card success-card hidden" style="display: none;">
+                                <div class="step-header success">
+                                    <div class="step-icon success"></div>
+                                    <h4>Successfully Connected!</h4>
+                                </div>
+                                <p class="step-description">Your Telegram account is now linked and ready to receive notifications and updates.</p>
+                                
+                                <div class="connection-details-card">
+                                    <h5>Connection Details</h5>
+                                    <div class="detail-grid">
+                                        <div class="detail-item">
+                                            <span class="detail-label">
+                                                <i class="fas fa-id-card"></i>
+                                                Chat ID
+                                            </span>
+                                            <span id="connectedChatId" class="detail-value">Not available</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">
+                                                <i class="fas fa-circle"></i>
+                                                Status
+                                            </span>
+                                            <span class="status-badge status-active">
+                                                <i class="fas fa-check-circle"></i>
+                                                Active
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="connected-features">
+                                    <div class="feature-card">
+                                        <div class="feature-icon"></div>
+                                        <div class="feature-content">
+                                            <h6>Real-time Notifications</h6>
+                                            <p>Get instant updates about your translations</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-card">
+                                        <div class="feature-icon"></div>
+                                        <div class="feature-content">
+                                            <h6>Bot Commands</h6>
+                                            <p>Use commands to interact with the service</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="connected-actions">
+                                    <div class="test-message-card">
+                                        <h5>
+                                            <i class="fas fa-paper-plane"></i>
+                                            Test Your Connection
+                                        </h5>
+                                        <div class="test-input-group">
+                                            <input type="text" id="testMessage" class="form-input" placeholder="Enter a test message..." value="Hello from MultiLingo! ">
+                                            <button onclick="sendTestMessage()" class="btn btn-success">
+                                                <i class="fas fa-send"></i>
+                                                Send Test
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="danger-zone">
+                                        <h6>Danger Zone</h6>
+                                        <p>Once you unlink your account, you will stop receiving notifications.</p>
+                                        <button onclick="unlinkTelegram()" class="btn btn-danger">
+                                            <i class="fas fa-unlink"></i>
+                                            Unlink Account
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Settings Tab -->
+                <div class="tab-content" id="settings-tab">
+                    <div class="settings-header">
+                        <div class="settings-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="settings-info">
+                            <h3>Notification Preferences</h3>
+                            <p>Customize how you receive notifications and configure your language preferences for the best experience.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-grid">
+                        <div class="setting-card">
+                            <div class="setting-header">
+                                <div class="setting-icon"></div>
+                                <div class="setting-title">
+                                    <h4>Language Preferences</h4>
+                                    <p>Choose your preferred language for notifications and interface</p>
+                                </div>
+                            </div>
+                            <div class="setting-content">
+                                <div class="form-group">
+                                    <label for="preferredLanguage" class="form-label">
+                                        <i class="fas fa-language"></i>
+                                        Preferred Language for Notifications
+                                    </label>
+                                    <select id="preferredLanguage" name="preferredLanguage" class="form-select">
+                                        <option value="en">US English</option>
+                                        <option value="es">ES Spanish</option>
+                                        <option value="fr">FR French</option>
+                                        <option value="de">DE German</option>
+                                        <option value="hi">IN Hindi</option>
+                                        <option value="ta">IN Tamil</option>
+                                        <option value="te">IN Telugu</option>
+                                        <option value="ar">SA Arabic</option>
+                                        <option value="zh">CN Chinese</option>
+                                        <option value="ja">JP Japanese</option>
+                                        <option value="ko">KR Korean</option>
+                                        <option value="ru">RU Russian</option>
+                                        <option value="pt">BR Portuguese</option>
+                                        <option value="it">IT Italian</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-card">
+                            <div class="setting-header">
+                                <div class="setting-icon"></div>
+                                <div class="setting-title">
+                                    <h4>Audio Notifications</h4>
+                                    <p>Enable or disable audio alerts for important notifications</p>
+                                </div>
+                            </div>
+                            <div class="setting-content">
+                                <div class="toggle-group">
+                                    <label for="audioNotifications" class="toggle-label">
+                                        <div class="toggle-info">
+                                            <span class="toggle-title">
+                                                <i class="fas fa-volume-up"></i>
+                                                Enable Audio Notifications
+                                            </span>
+                                            <span class="toggle-description">Receive audio alerts for important notifications and updates</span>
+                                        </div>
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" id="audioNotifications" name="audioNotifications">
+                                            <span class="toggle-slider"></span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-actions">
+                        <button id="savePreferencesBtn" class="btn btn-primary btn-large">
+                            <i class="fas fa-save"></i>
+                            Save Preferences
+                        </button>
+                        <div class="save-note">
+                            <i class="fas fa-info-circle"></i>
+                            Changes will be applied immediately and synced across all your devices.
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Message Container -->
+        <div id="messageContainer" class="message-container"></div>
+    </div>
+
+    <script src="/static/js/navbar.js"></script>
+    <script src="/static/js/profile.js"></script>
+</body>
+</html>

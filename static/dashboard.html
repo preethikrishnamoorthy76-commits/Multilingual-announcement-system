@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MultiLingo</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Professional Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <div>
+                    <h1>MultiLingo</h1>
+                    <div class="brand-subtitle">Multi Language Announcement</div>
+                </div>
+            </div>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="/dashboard" class="nav-link active">
+                    <i class="fas fa-tachometer-alt nav-icon"></i>
+                    Dashboard
+                </a>
+                <a href="/profile" class="nav-link">
+                    <i class="fas fa-user-circle nav-icon"></i>
+                    Profile
+                </a>
+                <button id="logoutBtn" class="btn btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-container">
+
+            <!-- Main Content -->
+            <div class="dashboard-content">
+
+                <!-- Train Information Table -->
+                <div class="card modern-table-card">
+                    <div class="card-header">
+                        <div class="header-content">
+                            <div class="header-title">
+                                <h2><i class="fas fa-train"></i> Live Train Information</h2>
+                                <p>Real-time status and updates of trains in the system</p>
+                            </div>
+                            <div class="header-actions">
+                                <button class="btn-refresh" onclick="loadTrainStatus()">
+                                    <i class="fas fa-sync-alt"></i>
+                                    Refresh
+                                </button>
+                                <div class="view-toggle">
+                                    <button class="btn-toggle active" data-view="table">
+                                        <i class="fas fa-table"></i>
+                                    </button>
+                                    <button class="btn-toggle" data-view="card">
+                                        <i class="fas fa-th-large"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Loading state -->
+                    <div class="loading-container" id="loadingSpinner">
+                        <div class="loading-spinner"></div>
+                        <p>Loading train information...</p>
+                    </div>
+
+                    <!-- Table View -->
+                    <div id="trainTableContainer" class="train-table-container">
+                        <div class="table-wrapper">
+                            <table class="trains-table">
+                                <thead>
+                                    <tr>
+                                        <th class="sortable" data-sort="train_number">
+                                            <div class="th-content">
+                                                <span>Train</span>
+                                                <i class="fas fa-sort"></i>
+                                            </div>
+                                        </th>
+                                        <th class="sortable" data-sort="route">
+                                            <div class="th-content">
+                                                <span>Route</span>
+                                                <i class="fas fa-sort"></i>
+                                            </div>
+                                        </th>
+                                        <th class="sortable" data-sort="current_station">
+                                            <div class="th-content">
+                                                <span>Current Station</span>
+                                                <i class="fas fa-sort"></i>
+                                            </div>
+                                        </th>
+                                        <th class="sortable" data-sort="progress">
+                                            <div class="th-content">
+                                                <span>Progress</span>
+                                                <i class="fas fa-sort"></i>
+                                            </div>
+                                        </th>
+                                        <th class="sortable" data-sort="status">
+                                            <div class="th-content">
+                                                <span>Status</span>
+                                                <i class="fas fa-sort"></i>
+                                            </div>
+                                        </th>
+                                        <th class="sortable" data-sort="last_update">
+                                            <div class="th-content">
+                                                <span>Last Update</span>
+                                                <i class="fas fa-sort"></i>
+                                            </div>
+                                        </th>
+                                        <th class="actions-header">
+                                            <span>Actions</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="trainsTableBody">
+                                    <!-- Train rows will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Card View (Legacy) -->
+                    <div id="trainListContainer" class="train-list-container" style="display: none;">
+                        <!-- Train items will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Train Subscriptions Section -->
+                <div class="subscriptions-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-bell"></i> Train Subscriptions</h2>
+                            <p>Manage your train notification subscriptions</p>
+                        </div>
+                        <div id="subscriptionsContainer" class="subscriptions-container">
+                            <!-- Subscriptions will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message Container -->
+                <div id="messageContainer" class="message-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/navbar.js"></script>
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

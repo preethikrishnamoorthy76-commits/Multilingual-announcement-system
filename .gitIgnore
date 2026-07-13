@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtualenv
+.venv/
+
+# Environment files
+.env
+.env.local
+.env.*
+
+# Database
+users.db
+
+# Logs
+*.log
+train_notifications.log
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+

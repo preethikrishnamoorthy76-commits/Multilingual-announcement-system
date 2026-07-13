@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiLingo - Train Status</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-shell">
+        <header class="dashboard-topbar">
+            <div>
+                <p class="eyebrow">MultiLingo</p>
+                <h1>Train Status</h1>
+                <p class="subtitle">Live train monitoring and subscription view.</p>
+            </div>
+            <nav class="dashboard-nav">
+                <a href="/">Home</a>
+                <a href="/translate">Translate</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/profile">Profile</a>
+            </nav>
+        </header>
+
+        <main class="dashboard-grid">
+            <section class="dashboard-card hero-card">
+                <div class="hero-copy">
+                    <span class="pill">Live Route Tracking</span>
+                    <h2>Monitor train movements, current station, and updates in one place.</h2>
+                    <p>Use this page to plug in the live train status API and surface route progress, delays, and passenger alerts.</p>
+                </div>
+                <div class="status-metrics">
+                    <div class="metric">
+                        <span class="metric-label">Active Trains</span>
+                        <strong>14</strong>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Update Window</span>
+                        <strong>Real-time</strong>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Notifications</span>
+                        <strong>Enabled</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-card">
+                <h3>What this page is for</h3>
+                <ul class="feature-list">
+                    <li>View current train position and station history.</li>
+                    <li>Show subscription and notification status.</li>
+                    <li>Display live updates from the mock train API.</li>
+                </ul>
+            </section>
+
+            <section class="dashboard-card">
+                <h3>API endpoint</h3>
+                <p class="code-line">GET /api/train-status/&lt;train_number&gt;</p>
+                <p class="muted">This frontend page is ready to be wired to the train status endpoint.</p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
